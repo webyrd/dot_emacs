@@ -2,6 +2,7 @@
 
 ;;; dependencies (assumed to be in ~/.emacs.d):
 ;;;
+;;; exec-path-from-shell.el
 ;;; paredit.el
 ;;; quack.el
 ;;; undo-tree.el
