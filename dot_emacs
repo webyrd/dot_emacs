@@ -8,8 +8,86 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
+;;; Avoid iconizing emacs.
+(global-unset-key "\C-z")
+
+;;; Jump to a specific line of the current buffer
+(global-set-key "\M-g" 'goto-line)
+
+;;; Tabs are evil?
+;;; Use spaces instead of tabs for indentation.
+(setq indent-tabs-mode nil)
+
+(setq visible-bell t)
+
+;;; put save files in their own directory
+;;; (from http://www.emacswiki.org/emacs/BackupDirectory)
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of 
+;;; fill-paragraph. Takes a multi-line paragraph and makes 
+;;; it into a single line of text.
+(defun unfill-paragraph ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(require 'quack)
+
+;;; Loading/creating a file/buffer whose name ends with '.ss'
+;;; automagically switches Emacs to Scheme mode.
+(setq auto-mode-alist (cons '("\\.ss" . scheme-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.sls" . scheme-mode) auto-mode-alist))
+
+;;; Teach Emacs how to properly indent
+;;; certain Scheme special forms
+;;; (such as 'pmatch')
+(put 'cond 'scheme-indent-function 0)
+(put 'pmatch 'scheme-indent-function 1)
+(put 'match 'scheme-indent-function 1)
+(put 'dmatch 'scheme-indent-function 1)
+(put 'let-values 'scheme-indent-function 1)
+(put 'call-with-values 'scheme-indent-function 2)
+(put 'syntax-case 'scheme-indent-function 2)
+(put 'test 'scheme-indent-function 1)
+(put 'test-check 'scheme-indent-function 1)
+(put 'test-divergence 'scheme-indent-function 1)
+(put 'make-engine 'scheme-indent-function 0)
+(put 'trace-lambda 'scheme-indent-function 1)
+
+;;; minikanren-specific indentation
+(put 'lambdaf@ 'scheme-indent-function 1)
+(put 'lambdag@ 'scheme-indent-function 1)
+(put 'fresh 'scheme-indent-function 1)
+(put 'exists 'scheme-indent-function 1)
+(put 'exist 'scheme-indent-function 1)
+(put 'nom 'scheme-indent-function 1)
+(put 'run 'scheme-indent-function 2)
+(put 'conde 'scheme-indent-function 0)
+(put 'conda 'scheme-indent-function 0)
+(put 'condu 'scheme-indent-function 0)
+(put 'project 'scheme-indent-function 1)
+(put 'run* 'scheme-indent-function 1)
+(put 'run1 'scheme-indent-function 1)
+(put 'run2 'scheme-indent-function 1)
+(put 'run3 'scheme-indent-function 1)
+(put 'run4 'scheme-indent-function 1)
+(put 'run5 'scheme-indent-function 1)
+(put 'run6 'scheme-indent-function 1)
+(put 'run7 'scheme-indent-function 1)
+(put 'run8 'scheme-indent-function 1)
+(put 'run9 'scheme-indent-function 1)
+(put 'run10 'scheme-indent-function 1)
 
 ;;; paredit (much of this configuration taken from http://www.emacswiki.org/emacs/ParEdit)
 (autoload 'enable-paredit-mode "paredit"
@@ -22,8 +100,6 @@
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
-(require 'quack)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -31,8 +107,11 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(quack-default-program "petite")
+ '(quack-fontify-style (quote plt))
  '(quack-pretty-lambda-p t)
  '(quack-programs (quote ("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "petite" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
+ '(quack-run-scheme-always-prompts-p nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 
@@ -42,3 +121,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(defun wills-start-scheme ()
+  "wills-start-scheme"
+  (interactive)
+  (run-scheme "petite"))
+
+(global-set-key "\C-z\C-c" 'wills-start-scheme)
