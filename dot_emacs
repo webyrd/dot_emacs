@@ -8,6 +8,10 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 ;;; Avoid iconizing emacs.
 (global-unset-key "\C-z")
 
