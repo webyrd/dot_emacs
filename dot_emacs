@@ -9,6 +9,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
+;;; Make sure the PATH within Emacs is the same as within the OS X
+;;; terminal
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -23,9 +25,10 @@
 ;;; Use spaces instead of tabs for indentation.
 (setq indent-tabs-mode nil)
 
+;;; Flash the screen instead of beeping when there is an error
 (setq visible-bell t)
 
-;;; put save files in their own directory
+;;; Put save files in their own directory
 ;;; (from http://www.emacswiki.org/emacs/BackupDirectory)
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -36,6 +39,7 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
+;;; Super undo mode
 (require 'undo-tree)
 (global-undo-tree-mode)
 
