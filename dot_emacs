@@ -146,6 +146,13 @@
    (1 . match)
    (1 . pmatch)
    (1 . dmatch)
+   (1 . syntax-case)
+   (1 . with-syntax)
+   (1 . unless)
+   (1 . when)
+   (1 . library)
+   (1 . export)
+   (1 . import)
    ))
 
 ;;; paredit (much of this configuration taken from http://www.emacswiki.org/emacs/ParEdit)
