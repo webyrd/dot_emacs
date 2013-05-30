@@ -6,6 +6,8 @@
 ;;; paredit.el
 ;;; quack.el
 ;;; undo-tree.el
+;;;
+;;; Also, GNU ls ('gls') is assumed to be installed.
 
 (add-to-list 'load-path "~/.emacs.d/")
 
