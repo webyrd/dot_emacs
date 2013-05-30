@@ -9,11 +9,24 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
+;;; Default window width and height
+;;; (from http://www.jesshamrick.com/2013/03/31/macs-and-emacs/)
+(defun custom-set-frame-size ()
+  (add-to-list 'default-frame-alist '(height . 64))
+  (add-to-list 'default-frame-alist '(width . 99)))
+(custom-set-frame-size)
+(add-hook 'before-make-frame-hook 'custom-set-frame-size)
+
 ;;; Make sure the PATH within Emacs is the same as within the OS X
 ;;; terminal
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+;;; This assumes you installed GNU coreutils to get gls (GNU ls)
+;;; For example, on OS X 'brew install coreutils' to install gls via Homebrew
+(setq ls-lisp-use-insert-directory-program t)
+(setq insert-directory-program "gls") 
 
 ;;; Avoid iconizing emacs.
 (global-unset-key "\C-z")
@@ -27,6 +40,10 @@
 
 ;;; Flash the screen instead of beeping when there is an error
 (setq visible-bell t)
+
+;;; Make the command key meta on OS X
+(when (memq window-system '(mac ns))
+  (setq ns-command-modifier 'meta))
 
 ;;; Put save files in their own directory
 ;;; (from http://www.emacswiki.org/emacs/BackupDirectory)
