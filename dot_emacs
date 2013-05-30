@@ -130,13 +130,8 @@
 				 (regexp-opt keyword-list)
 				 "\\)[ \n]")))
     (font-lock-add-keywords 'scheme-mode
-			    `((,keyword-regexp 1 ',face-name))))
-  (mapc #'(lambda (x)
-	    (put (cdr x)
-		 'scheme-indent-function
-		 (car x)))
-	keyword-rules))
- 
+			    `((,keyword-regexp 1 ',face-name)))))
+
 (scheme-add-keywords
  'font-lock-keyword-face
  '((1 . fresh)
