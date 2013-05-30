@@ -41,7 +41,7 @@
 
 ;;; Super undo mode
 (require 'undo-tree)
-(global-undo-tree-mode)
+;(global-undo-tree-mode)
 
 ;;; Stefan Monnier <foo at acm.org>. It is the opposite of 
 ;;; fill-paragraph. Takes a multi-line paragraph and makes 
@@ -108,6 +108,7 @@
 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'inferior-scheme-mode-hook           #'enable-paredit-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -116,11 +117,10 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(column-number-mode t)
- '(quack-default-program "petite")
+ '(quack-default-program "racket")
  '(quack-fontify-style (quote plt))
  '(quack-pretty-lambda-p t)
  '(quack-programs (quote ("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "petite" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
- '(quack-run-scheme-always-prompts-p nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 
