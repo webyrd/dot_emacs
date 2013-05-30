@@ -39,7 +39,10 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
-;;; Super undo mode
+;;; This color theme assumes Emacs 24
+(load-theme 'manoj-dark t)
+
+;;; Super undo mode (disabled by default)
 (require 'undo-tree)
 ;(global-undo-tree-mode)
 
